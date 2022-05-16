@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<img id="image" src="#" />
+	<script type="text/javascript">
+		let imageEl = document.getElementById('image');
+		document.addEventListener("paste", e => {
+			let files = Array.from(((e.clipboardData || {}).files || []))
+				.filter(file => file.type.startsWith('image/'));
+			if (files.length < 1) {
+				return ;
+			}
+
+			let fileReader = new FileReader()
+			fileReader.addEventListener('load', e => {
+				imageEl.src = e.target.result;
+			})
+			fileReader.readAsDataURL(files[0]);
+		})
+	</script>
+</body>
+</html>
